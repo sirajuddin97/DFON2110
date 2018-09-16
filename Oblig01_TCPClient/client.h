@@ -20,5 +20,5 @@ public:
 
 private:
 	int sockfd, srv_port, n;
-	std::string srv_adr;
+	std::string srv_ip;
 };
