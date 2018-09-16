@@ -1,24 +1,30 @@
 #include <iostream>
 #include <string>
-#include <sys/types.h>
+#include <string.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
+#include <arpa/inet.h>
 
 enum Errors{
 	INVALID_IP,
 	INVALID_PORT,
-	SOCKET_OPEN
+	SOCKET_FAIL,
+	CONNECTION_FAIL,
+	SEND_FAIL,
+	READ_FAIL
 };
 
 class Socket{
 public:
 	Socket();
-	~Socket();
-
-	void connect();
+	void createSocket();
+	void connectSocket();
+	void sendData();
+	void receiveData();
 
 private:
-	int sockfd, srv_port, n;
-	std::string srv_ip;
+	std::string ip;
+	int port;
+	int sock;
+	char buffer[4096];
+	struct sockaddr_in serv_addr;
 };
