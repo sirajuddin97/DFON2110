@@ -24,7 +24,8 @@ void Socket::connectSocket(){
 	serv_addr.sin_addr.s_addr = inet_addr(ip.c_str());
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(port);
-    if(connect(sock, (struct sockaddr*)& serv_addr, sizeof(serv_addr)) < 0) throw CONNECTION_FAIL;
+    int c = connect(sock, (struct sockaddr*)& serv_addr, sizeof(serv_addr));
+    if(c < 0) throw CONNECTION_FAIL;
     std::cout << "STATUS: Successfully connected to the server!\n";
 }
 
