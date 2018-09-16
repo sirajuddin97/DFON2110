@@ -5,22 +5,20 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+enum Errors{
+	INVALID_IP,
+	INVALID_PORT,
+	SOCKET_OPEN
+};
+
 class Socket{
 public:
 	Socket();
 	~Socket();
-
-	class err_open{};
 
 	void connect();
 
 private:
 	int sockfd, srv_port, n;
 	std::string srv_adr;
-};
-
-enum Errors{
-	INVALID_IP,
-	INVALID_PORT,
-	SOCKET_OPEN
 };

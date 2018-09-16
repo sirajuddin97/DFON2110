@@ -17,6 +17,8 @@ void Socket::connect(){
 	std::cin >> srv_port;
 	if(!std::cin) throw INVALID_PORT;
 
+	std::cout << "\nConnecting to " << srv_adr << ":" << srv_port << ", please wait...\n";
+
 	char buffer[256];
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if(sockfd < 0) throw SOCKET_OPEN;

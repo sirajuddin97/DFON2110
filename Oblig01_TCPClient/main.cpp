@@ -12,5 +12,8 @@ int main(){
 			case SOCKET_OPEN: std::cout << "ERROR: Could not open socket!\n"; break;
 		}
 	}
+	catch(...){
+		std::cout << "ERROR: Unknown error!\n";
+	}
 	return 0;
 }
