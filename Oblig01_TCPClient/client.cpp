@@ -22,11 +22,11 @@ void Socket::createSocket(){
 void Socket::connectSocket(){
 	std::cout << "STATUS: Connecting to " << ip << " on port " << port << "...\n";
 	serv_addr.sin_addr.s_addr = inet_addr(ip.c_str());
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(port);
-    int c = connect(sock, (struct sockaddr*)& serv_addr, sizeof(serv_addr));
-    if(c < 0) throw CONNECTION_FAIL;
-    std::cout << "STATUS: Successfully connected to the server!\n";
+	serv_addr.sin_family = AF_INET;
+	serv_addr.sin_port = htons(port);
+	int c = connect(sock, (struct sockaddr*)& serv_addr, sizeof(serv_addr));
+	if(c < 0) throw CONNECTION_FAIL;
+	std::cout << "STATUS: Successfully connected to the server!\n";
 }
 
 void Socket::sendData(){
@@ -39,6 +39,6 @@ void Socket::sendData(){
 
 void Socket::receiveData(){
 	int r = recv(sock, buffer, sizeof(buffer), 0);
-    if(r < 0) throw READ_FAIL;
-    std::cout << buffer << std::endl;
+	if(r < 0) throw READ_FAIL;
+	std::cout << buffer << std::endl;
 }
