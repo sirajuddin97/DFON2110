@@ -9,7 +9,6 @@ int main(){
 		std::cin >> newIP; if(!std::cin) throw INVALID_IP; else tcpClient.setIP(newIP);
 		std::cout << "* Enter server port: ";
 		std::cin >> newPort; if(!std::cin || newPort <= 0 || newPort > 9999) throw INVALID_PORT; else tcpClient.setPort(newPort);
-		
 		tcpClient.createSocket();
 		tcpClient.connectSocket();
 		tcpClient.sendData();
