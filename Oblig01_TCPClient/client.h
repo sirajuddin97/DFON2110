@@ -10,12 +10,15 @@ enum Errors{
 	SOCKET_FAIL,
 	CONNECTION_FAIL,
 	SEND_FAIL,
-	READ_FAIL
+	READ_FAIL,
+	INVALID_STUDNR
 };
 
 class Socket{
 public:
-	Socket();
+	Socket() : port(0), sock(0) {};
+	void setIP(std::string i) {ip = i;}
+	void setPort(int p) {port = p;}
 	void createSocket();
 	void connectSocket();
 	void sendData();
@@ -23,8 +26,7 @@ public:
 
 private:
 	std::string ip;
-	int port;
-	int sock;
+	int port, sock;
 	char buffer[1024];
 	struct sockaddr_in serv_addr;
 };
