@@ -3,12 +3,12 @@
 int main(){
 	try{
 		Socket tcpClient;
-		std::string newIP; int newPort;
+		std::string tempIP; int tempPort;
 		std::cout << "TCP SERVER CLIENT:\n";
 		std::cout << "* Enter server IP address: ";
-		std::cin >> newIP; if(!std::cin) throw INVALID_IP; else tcpClient.setIP(newIP);
+		std::cin >> tempIP; if(!std::cin) throw INVALID_IP; else tcpClient.setIP(tempIP);
 		std::cout << "* Enter server port: ";
-		std::cin >> newPort; if(!std::cin || newPort <= 0 || newPort > 9999) throw INVALID_PORT; else tcpClient.setPort(newPort);
+		std::cin >> tempPort; if(!std::cin || tempPort <= 0 || tempPort > 9999) throw INVALID_PORT; else tcpClient.setPort(tempPort);
 		tcpClient.createSocket();
 		tcpClient.connectSocket();
 		tcpClient.sendData();
