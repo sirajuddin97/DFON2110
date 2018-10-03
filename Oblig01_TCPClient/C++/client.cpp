@@ -41,4 +41,4 @@ void Socket::receiveData(){
 	int r = recv(sock, buffer, sizeof(buffer), 0);
 	if(r < 0) throw READ_FAIL;
 	std::cout << buffer << std::endl;
-}
+} 

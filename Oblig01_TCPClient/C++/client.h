@@ -24,4 +24,4 @@ private:
 	int port, sock;
 	char buffer[1024];
 	struct sockaddr_in serv_addr;
-};
+}; 
