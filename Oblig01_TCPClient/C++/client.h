@@ -11,8 +11,8 @@ enum Errors{
 
 class Socket{
 public:
-	Socket() : port(0), sock(0) {};
-	void setIP(std::string i) {ip = i;}
+	Socket() : ip("158.36.70.56"), port(0), sock(0) {}
+	void setIP(std::string i) {if(i!="lekeplass") ip = i;}
 	void setPort(int p) {port = p;}
 	void createSocket();
 	void connectSocket();
