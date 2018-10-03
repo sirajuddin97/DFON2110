@@ -19,8 +19,20 @@ void Socket::sendData(){
 	std::string student_nr;
 	std::cout << "\nSkriv inn student nummeret ditt: ";
 	std::cin >> student_nr;
-	if(strlen(student_nr.c_str()) != 6) throw INVALID_STUDNR;
-	int s = send(sock, student_nr.c_str(), strlen(student_nr.c_str()), 0);
+	//if(strlen(student_nr.c_str()) != 6) throw INVALID_STUDNR;
+	memset(buffer, 0, 1024);
+	buffer[0] = 1;
+	buffer[1] = 0;
+	buffer[2] = 7;
+	buffer[3] = 6;
+	buffer[4] =  '2';
+	buffer[5] =  '1';
+	buffer[6] =  '6';
+	buffer[7] =  '9';
+	buffer[8] =  '8';
+	buffer[9] =  '8';
+	int s = send(sock, buffer, 10, 0);
+	//int s = send(sock, student_nr.c_str(), strlen(student_nr.c_str()), 0);
 	if(s < 0) throw SEND_FAIL;
 }
 
