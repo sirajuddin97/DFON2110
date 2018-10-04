@@ -25,12 +25,13 @@ void Socket::sendData(){
 	buffer[1] = 0; // Size of message 
 	buffer[2] = 7; // Size of message
 	buffer[3] = 6; // Size of studentnr
-	buffer[4] = '0';
-	buffer[5] = '2';
-	buffer[6] = '1';
-	buffer[7] = '6';
-	buffer[8] = '9';
+	buffer[4] = '2';
+	buffer[5] = '1';
+	buffer[6] = '6';
+	buffer[7] = '9';
+	buffer[8] = '8';
 	buffer[9] = '8';
+
 	int s = send(sock, buffer, 10, 0);
 	//int s = send(sock, student_nr.c_str(), strlen(student_nr.c_str()), 0);
 	if(s < 0) throw SEND_FAIL;
