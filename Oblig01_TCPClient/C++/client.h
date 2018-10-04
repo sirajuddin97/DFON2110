@@ -22,6 +22,7 @@ public:
 private:
 	std::string ip;
 	int port, sock;
-	char buffer[1024];
+	static const int bufferSize = 512;
+	char buffer[bufferSize];
 	struct sockaddr_in serv_addr;
 }; 
