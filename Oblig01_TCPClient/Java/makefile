@@ -1,2 +1,4 @@
 all:
-	clear && javac client.java && java client
+	clear
+	@javac TCPClient.java
+	@java TCPClient
