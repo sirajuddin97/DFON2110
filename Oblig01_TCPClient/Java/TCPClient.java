@@ -7,53 +7,41 @@ import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
  
-public class TCPClient{
- 
+public class TCPClient{ 
     private static Socket socket;
+
+	public enum Errors{
+		INVALID_IP, INVALID_PORT, INVALID_STUDNR,
+		SOCKET_FAIL, CONNECTION_FAIL, SEND_FAIL, READ_FAIL
+	};
+
+    public static void main(String args[]){
+		try{
+			String host = "158.36.70.56";
+			int port = 80;
+			InetAddress address = InetAddress.getByName(host);
+			socket = new Socket(address, port);
  
-    public static void main(String args[])
-    {
-        try
-        {
-            String host = "158.36.70.56";
-            int port = 80;
-            InetAddress address = InetAddress.getByName(host);
-            socket = new Socket(address, port);
+ 			OutputStream os = socket.getOutputStream();
+			OutputStreamWriter osw = new OutputStreamWriter(os);
+			BufferedWriter bw = new BufferedWriter(osw);
+
+			char stud[] = {0x01, 0, 7, 6, '2', '1', '6', '9', '8', '8'};
  
-            //Send the message to the server
-            OutputStream os = socket.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os);
-            BufferedWriter bw = new BufferedWriter(osw);
+			bw.write(stud);
+			bw.flush();
  
-            String number = "176216988";
- 
-            String sendMessage = number + "\n";
-            bw.write(sendMessage);
-            bw.flush();
-            System.out.println("Message sent to the server : "+sendMessage);
- 
-            //Get the return message from the server
-            InputStream is = socket.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String message = br.readLine();
-            System.out.println("Message received from the server : " +message);
-        }
-        catch (Exception exception)
-        {
-            exception.printStackTrace();
-        }
-        finally
-        {
-            //Closing the socket
-            try
-            {
-                socket.close();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+ 			InputStream is = socket.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			String message = br.readLine();
+			System.out.println(message);
+			socket.close();
+			System.out.println(Errors.INVALID_IP);
+//			throw INVALID_IP;
+		}
+        catch(Exception e){
+            //
         }
     }
 }
