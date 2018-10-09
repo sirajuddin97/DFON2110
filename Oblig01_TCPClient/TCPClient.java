@@ -3,37 +3,26 @@ import java.net.*;
 import java.util.Scanner;
 
 public class TCPClient{
-	private static String ip;
-	private static int port;
-	private static Socket sock;
-	private static char studnr[] = new char[6];
-	private static char buffer[] = new char[512];
-	private static char stud[] = {0x01, 0, 7, 6, '2', '1', '6', '9', '8', '8'};
+	private Socket sock;
+	private String ip;
+	private int port;
+	private char bufferIn[] = new char[512];
+	private char bufferOut[] = new char[10];
 	
-	public enum Errors{
-		INVALID_IP, INVALID_PORT, INVALID_STUDNR,
-		SOCKET_FAIL, CONNECTION_FAIL, SEND_FAIL, READ_FAIL
-	};
-
-    public static void main(String args[]){
+    public static void main(String args[]) throws Exception{
 		try{
 			TCPClient client = new TCPClient();
 			client.askUser();
 			client.createSocket();
 			client.sendData();
 			client.readData();
-			
-			//char msg_id = 0x01;
-			//short msg_size = 7;
-			//char studnr_size = 6;
-			//System.arraycopy(studnr, 0, buffer, 4, studnr.length);
 		}
 		catch(Exception e){
 			System.out.println("ERROR: Something went wrong!");
 		}
     }
 
-	private static void askUser(){
+	private void askUser() throws Exception{
 		System.out.print("Enter the server IP address: ");
 		Scanner input = new Scanner(System.in);
 		String tmpIP = input.nextLine();
@@ -45,43 +34,34 @@ public class TCPClient{
 		else port = tmpPort;
 	}
 
-	private static void createSocket(){
-		try{
-			InetAddress address = InetAddress.getByName(ip);
-			sock = new Socket(address, port);
-		}
-		catch(Exception e){
-			//
-		}
+	private void createSocket() throws Exception{
+		InetAddress address = InetAddress.getByName(ip);
+		sock = new Socket(address, port);
 	}
 
+	private void sendData() throws Exception{
+		char msg_id = 0x01;
+		short msg_size = 7; // kan jeg droppe short?
+		char studnr_size = 6;
 
-	private static void sendData(){
-		try{
-			System.out.print("Enter your student number: ");
-			Scanner input = new Scanner(System.in);
-			String tmp = input.next();
-			for(int i = 0; i < tmp.length(); i++){
-				studnr[i] = tmp.charAt(i);
-			}
-
-			PrintStream ps = new PrintStream(sock.getOutputStream());
-			ps.println(stud);
-		}
-		catch(Exception e){
-			//
-		}
+		bufferOut[0] = msg_id; // Message ID
+		bufferOut[1] = 0; // Size of stream (Big endian)
+		bufferOut[2] = (char)msg_size; // Size of stream (Big endian)
+		bufferOut[3] = studnr_size; // Size of studentnr
+		
+		System.out.print("Enter your student number: ");
+		Scanner input = new Scanner(System.in);
+		String studnr = input.next();
+		for(int i = 0; i < studnr.length(); i++) bufferOut[i+4] = studnr.charAt(i);
+		
+		PrintStream ps = new PrintStream(sock.getOutputStream());
+		ps.println(bufferOut);
 	}
 
-	private static void readData(){
-		try{
-			InputStreamReader isr = new InputStreamReader(sock.getInputStream());
-			BufferedReader br = new BufferedReader(isr);
-			br.read(buffer, 0, buffer.length);
-			System.out.print(buffer);
-		}
-		catch(Exception e){
-			//
-		}
+	private void readData() throws Exception{
+		InputStreamReader isr = new InputStreamReader(sock.getInputStream());
+		BufferedReader br = new BufferedReader(isr);
+		br.read(bufferIn, 0, bufferIn.length);
+		System.out.print(bufferIn);
 	}
 }
