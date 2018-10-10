@@ -30,7 +30,7 @@ public class TCPClient{
 
 		System.out.print("Enter the server port: ");
 		int tmpPort = input.nextInt();
-		if(tmpPort <= 0 || tmpPort > 9999) System.out.println("ERROR: Invalid port!");
+		if(tmpPort <= 0 || tmpPort > 99999) System.out.println("ERROR: Invalid port!");
 		else port = tmpPort;
 	}
 

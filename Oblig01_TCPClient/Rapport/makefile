@@ -1,7 +1,9 @@
 all:
-	clear
+	@clear
+	@pdflatex -interaction=nonstopmode -halt-on-error *.tex
+	@clear
 	@pdflatex -interaction=nonstopmode -halt-on-error *.tex
 	@open *.pdf
 	@rm *.aux
 	@rm *.log
-
+	@rm *.toc

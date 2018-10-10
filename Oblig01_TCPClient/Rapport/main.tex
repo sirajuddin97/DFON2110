@@ -1,41 +1,45 @@
-\documentclass[11pt]{report}
-\usepackage{outline}
-\usepackage{pmgraph}
-\usepackage[normalem]{ulem}
-\title{\textbf{Halla balla!}}
-%\author{Author 1\\and Author 2,\\et al.}
-\author{Dette er en test!}
-\date{\oldstylenums{00}/\oldstylenums{00}/\oldstylenums{00}}
-%--------------------Make usable space all of page
+\documentclass{article}
+\title{\textbf{Obligatorisk oppgave 1}}
+\author{\textbf{DFON2110 Operativsystemer, nettverk og programmeringsspråk}\\Sirajuddin Asjad (216988)}
+\date{}
+
+% --- Packages:
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+% --- Styling:
 \setlength{\oddsidemargin}{0in}
 \setlength{\evensidemargin}{0in}
 \setlength{\topmargin}{0in}
 \setlength{\headsep}{-.25in}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{8.5in}
-%--------------------Indention
 \setlength{\parindent}{1cm}
 
 \begin{document}
-%--------------------Title Page
-\maketitle
- 
-%--------------------Begin Outline
-\begin{outline}
-	\item Problem Statement \\ Constraints:
-    \begin{outline}
-    	\item Constraint 1
-    	\item Constraint 2
-    	\item Constraint 3
+	% Forside:
+	\begin{center}
+		\includegraphics[width=5cm]{usn}
+	\end{center}
+	\pagenumbering{gobble}
+	{\let\newpage\relax\maketitle}
+	
+	% Innhold:
+	\newpage
+	\pagenumbering{arabic}
+	\renewcommand{\contentsname}{Innholdsfortegnelse}
+	\tableofcontents
+	
+	% Introduksjon:
+	\newpage
+	\section{Introduksjon}
+		\subsection{Oppgavebeskrivelse}
+	
+	\section{Implementasjon}
 
-	\end{outline}
-\end{outline}
 
-\newpage
-
-Conclusion
-\par Par 1
-\par Par 2
-\par Par 3
+	\}k}newpage
+	\section{Konklusjon}
+		\subsection{Referanser}
 
 \end{document}
