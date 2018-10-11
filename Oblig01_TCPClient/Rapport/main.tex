@@ -5,73 +5,43 @@
 
 % --- Packages:
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
 \graphicspath{{img/}}
 
 % --- Styling:
+\setlength{\parindent}{0pt}
 \setlength{\oddsidemargin}{0in}
 \setlength{\evensidemargin}{0in}
 \setlength{\topmargin}{0in}
 \setlength{\headsep}{-.25in}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{8.5in}
-\setlength{\parindent}{1cm}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+	language=Java,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
 
 \begin{document}
-	% Forside:
-	\begin{center}
-		\includegraphics[width=5cm]{usn}
-	\end{center}
 	\pagenumbering{gobble}
-	{\let\newpage\relax\maketitle}
-	
-	% Innhold:
-	\newpage
+	\include{files/forside}	
 	\pagenumbering{arabic}
-	\renewcommand{\contentsname}{Innholdsfortegnelse}
-	\tableofcontents
-	
-	% Introduksjon:
-	\newpage
-	\section{Introduksjon}
-		\subsection{Oppgavebeskrivelse}
-			Denne oppgaven går ut på å lage en TCP klient som skal kommunisere med en TCP server på en gitt IP addresse og port. Kommunikasjonen foregår ved bruk av en spesifikk protokoll med noen spesifikke krav som må oppfylles, slik at bruker av klienten får kommunisert riktig med serveren. Dersom man har koblet seg til serveren og oppfyller alle krav så får man oppgaveteksten til neste obligatoriske innlevering i retur.
-
-		\subsection{Valg av operativsystem og språk}
-			TCP klienten har blitt programmert og utviklet i Java og platformen som har blitt brukt er Linux. Grunnen til at utvikler har valgt å kode klienten i Java er rett og slett fordi ett av kravene i denne oppgaven er at man ikke får lov til å bruke samme utviklerspråk på neste obligatoriske oppgave. Siden utvikleren behersker C++ mye bedre enn Java, så har denne oppgaven blitt kodet i Java slik at neste oppgave kan kodes i C++. Ellers er Java et greit språk for å utvikle en TCP klient, fordi språket er veldig stort og det finnes mye dokumentasjon på nettet om hvordan man enkelt kan kode en klient.
-
-	\newpage
-	\section{Implementasjon}
-		\subsection{Beskrivelse av kode}
-			Koden starter selvfølgelig med å importere de nødvendige pakkene som trengs for å bruke spesielle funksjoner til å blant annet opprette en socket og kommunisere med serveren. Denne klienten bruker 7 forskjellige pakker:
-			[kode her]
-
-			Det er en alternativ måte å importere pakker på, hvor man skriver import java.io.*, og da vil den importere
-		\subsection{Demonstrasjon}
-
-	\newpage
-	\section{Avslutning}
-		\subsection{Konklusjon}
-			Hehe
-
-		\newpage
-		\subsection{Referanser}
-			\renewcommand{\section}[2]{}
-			\begin{thebibliography}{50}
-				\bibitem{christian}
-					Christian Scott, Universitetet i Sørøst-Norge\\
-					\textit{Avdelingsingeniør, lærer og guru ved USN Kongsberg}
-
-				\bibitem{tcpbok}
-					TCP/IP Sockets in C: Practical Guide for Programmers\\
-					\textit{Elsevier Science, 2009. By Michael Donahoo, Kenneth Calvert}
-
-				\bibitem{knuthwebsite} 
-					Knuth: Computers and Typesetting,
-					\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
-			\end{thebibliography}
-		
-		\newpage
-		\subsection{Kildekode}
-			Hehe
-
+	\include{files/innholdsfortegnelse}	
+	\include{files/introduksjon}	
+	\include{files/implementasjon}	
+	\include{files/oppsummering}	
 \end{document}
