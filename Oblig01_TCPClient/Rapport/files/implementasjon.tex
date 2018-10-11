@@ -11,7 +11,7 @@ Koden starter selvfølgelig med å importere de nødvendige pakkene som trengs f
 	import java.util.Scanner;
 \end{lstlisting}
 
-Det finnes en alternativ måte å importere pakker på, hvor man skriver \textbf{import java.io.*} for å importere alle klassene som ligger inne i pakken. Denne metoden har både noen fordeler og ulemper, hvor en fordel er at man for eksempel sparer noen linjer i koden og man slipper å huske de forskjellige pakkenavnene. Ulempen er at koden bruker lengre tid under kompilering og bruker generelt mer plass. Med andre ord er det lurest å kun importere de pakkene man trenger.\\
+Det finnes en alternativ måte å importere pakker på, hvor man skriver \textbf{import java.io.*} for å importere alle klassene som ligger inne i pakken. Fordelen med denne metoden er at man sparer noen linjer og man slipper å huske de forskjellige pakkenavnene. Ulempen derimot er at koden bruker mer tid under kompilering og bruker generelt mer plass. Derfor er det med andre ord lurest å kun importere de pakkene man trenger.\\
 
 Alle funksjonene i TCP klienten er lagt inn i en klasse kalt TCPClient, hvor alle private variabler ligger øverst i klassen. Den første funksjonen som kjøres er da selvfølgelig \textbf{void main()}:
 \begin{lstlisting}
@@ -34,14 +34,14 @@ Alle funksjonene i TCP klienten er lagt inn i en klasse kalt TCPClient, hvor all
 	}
 \end{lstlisting}
 
-Dersom noen av disse funksjonene feiler og ikke klarer å kjøre så vil funksjonen kaste en exception, altså en feilmelding som tas imot nederst i koden. Den ser slik ut:
+Dersom noen av disse funksjonene feiler og ikke klarer å kjøre så vil funksjonen kaste en exception, altså en feilmelding som tas imot nederst i koden:
 \begin{lstlisting}
 	catch(Exception e){
 		System.out.println("ERROR: Something went wrong!");
 	}
 \end{lstlisting}
 
-Det er totalt fem funksjoner i klienten, og før disse kjøres så opprettes det en instans av klassen, for å allokere nok plass i minnet til det objektet som nettopp ble opprettet. Vi kan deretter kjøre funksjonene som ligger i objektet.
+Det er totalt fem funksjoner i klienten, og før disse kjøres så opprettes det en instans av klassen, for å allokere nok plass i minnet til det objektet som nettopp ble opprettet. Vi kan deretter kjøre funksjonene som ligger i objektet ved å skrive:
 \begin{lstlisting}
 	TCPClient client = new TCPClient();
 	client.askUser();
@@ -50,7 +50,7 @@ Det er totalt fem funksjoner i klienten, og før disse kjøres så opprettes det
 	client.readData();
 \end{lstlisting}
 
-Den første funksjonen som kjøres er \textbf{askUser()}. Denne funksjonen spør brukeren om å skrive inn serverens IP addresse og port nummer. Dersom IP og port er gyldig så får de private variablene verdien av disse. Hvis noen av operasjonene innenfor denne funksjonen feiler, vil funksjonen kaste en exception, altså en feilmelding som vises før programmet avsluttes.
+Den første funksjonen som kjøres er \textbf{askUser()}. Denne funksjonen spør brukeren om å skrive inn serverens IP addresse og port nummer. Dersom IP og port er gyldig så får de private variablene verdien av disse. Ved feil vil det kastes en exception, altså en feilmelding som vises før programmet avsluttes.
 \begin{lstlisting}
 	private void askUser() throws Exception{
 		System.out.print("Enter the server IP address: ");
@@ -75,7 +75,7 @@ Etter at IP adressen og port er satt så kjøres neste funksjon, altså \textbf{
 
 Nå er det opprettet en socket mellom klient og server, og klienten kan nå kommunisere med serveren. Serveren er satt opp med en spesifikk protokoll som kun godtar en liste med 10 bytes. Slik det er beskrevet i oppgaven så trenger man en melding ID, størrelse på meldingen, størrelsen på studentnummer og i tillegg sende studentnummer til serveren, og deretter vil serveren sjekke om klienten ber om riktig kommando, eventuelt om det er oppgitt feil studentnummer.\\
 
-I \textbf{sendData()} funksjonen blir det spurt om å oppgi studentnummer, og deretter blir melding ID, melding størrelse og studentnummer størrelse satt inn i et array bestående av characters. Melding ID er en \textit{char}, altså 1 byte, det samme gjelder størrelsen av studentnummer, mens størrelsen av meldingen er en \textit{short}, altså 2 bytes. Sammen med studentnummer som består av 6 characters, så har vi en liste med tilsammen 10 bytes. Denne lista sendes videre til serveren ved hjelp av klassen PrintStream, som tar dataen som ligger inne i arrayet og overfører dette videre til serveren.
+I \textbf{sendData()} funksjonen blir disse verdiene satt inn i et array bestående av characters. Melding ID er en \textit{char}, altså 1 byte, det samme gjelder størrelsen av studentnummer, mens størrelsen av meldingen er en \textit{short}, altså 2 bytes. Sammen med studentnummer som består av 6 characters, så har vi en liste med tilsammen 10 bytes. Denne lista sendes videre til serveren ved hjelp av klassen PrintStream, som tar dataen som ligger inne i arrayet og overfører dette videre til serveren.
 \begin{lstlisting}
 	private void sendData() throws Exception{
 		char msg_id = 0x01;
