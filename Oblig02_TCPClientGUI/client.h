@@ -20,11 +20,12 @@ public:
 	void setPort(int p){port = p;}
 
 private:
-	std::string ip:
+    std::string ip;
 	int port;
 	int sock;
-	struct sockaddr_in serv_addr;
+    //struct sockaddr_in serv_addr;
 };
+
 
 class TCPClient : public QMainWindow{
     Q_OBJECT
@@ -32,8 +33,9 @@ class TCPClient : public QMainWindow{
 public:
     explicit TCPClient(QWidget *parent = nullptr);
     ~TCPClient();
-	void setIP(std::string i){if(i!="lekeplass") ip = i;}
-	void setPort(int p){port = p;}
+
+private slots:
+    void on_connectButton_clicked();
 
 private:
     Ui::TCPClient *ui;
@@ -45,7 +47,6 @@ private:
 
 	static const int bufferSize = 512;
 	char buffer[bufferSize];
-
 };
 
 #endif
