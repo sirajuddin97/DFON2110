@@ -23,7 +23,7 @@ void Socket::sendData(){
 
 	char msg_id = 0x01;
 	char studnr_size = strlen(studnr);
-	short msg_size = sizeof(msg_id) + strlen(studnr); // Big endian?? 
+	short msg_size = sizeof(msg_id) + strlen(studnr);
 
 	memset(buffer, 0, bufferSize);
 	memcpy(buffer, &msg_id, sizeof(msg_id));
