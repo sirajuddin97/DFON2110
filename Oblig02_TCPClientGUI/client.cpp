@@ -3,28 +3,35 @@
 
 TCPClient::TCPClient(QWidget *parent) : QMainWindow(parent), ui(new Ui::TCPClient){
     ui->setupUi(this);
-    ui->logBox->setReadOnly(true);
 }
 
 TCPClient::~TCPClient(){
     delete ui;
 }
 
-QString TCPClient::getTime(){
+void TCPClient::addLog(QString text){
     QDateTime dateTime = dateTime.currentDateTime();
     QString dateTimeString = dateTime.toString("hh:mm:ss");
-    return dateTimeString;
-}
-
-void TCPClient::addLog(QString text){
-    ui->logBox->appendPlainText("[" + getTime() + "] " + text);
+    ui->logBox->appendPlainText("[" + dateTimeString + "] " + text);
 }
 
 void TCPClient::on_connectButton_clicked(){
-    QString tempIP = ui->ipBox->text(), tempPort = ui->portBox->text();
-    if(tempIP != "" && tempPort != ""){
-        addLog("Connecting to " + tempIP + " on port " + tempPort + "...");
-        ui->connectButton->setText("Disconnect");
+    if(!ui->ipBox->text().isEmpty() && !ui->portBox->text().isEmpty()){
+        std::string tempIP = ui->ipBox->text().toStdString();
+        int tempPort = ui->ipBox->text().toInt();
+
+        if(!socket.getConnectionStatus()){
+            if(socket.makeConnection(tempIP, tempPort)){
+                addLog("Successfully connected to the server!");
+                ui->connectButton->setText("Disconnect");
+            }
+            else addLog("Failed to connect to the server. Try again!");
+        }
+        else{
+            socket.abortConnection();
+            addLog("Disconnected from the server!");
+            ui->connectButton->setText("Connect");
+        }
     }
     else addLog("Please enter the server IP address and port number!");
 }

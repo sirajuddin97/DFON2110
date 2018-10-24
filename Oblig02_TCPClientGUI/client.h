@@ -1,8 +1,8 @@
 #ifndef CLIENT_H
 #define CLIENT_H
-
 #include <QMainWindow>
 #include <QDateTime>
+#include "socket.h"
 
 namespace Ui{
     class TCPClient;
@@ -21,8 +21,8 @@ private slots:
 
 private:
     Ui::TCPClient *ui;
-    QString getTime();
     void addLog(QString);
+    Socket socket;
 };
 
 #endif

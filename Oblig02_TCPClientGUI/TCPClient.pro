@@ -7,10 +7,12 @@ CONFIG += c++11, sdk_no_version_check
 
 SOURCES += \
         main.cpp \
-        client.cpp
+        client.cpp \
+    socket.cpp
 
 HEADERS += \
-        client.h
+        client.h \
+        socket.h
 
 FORMS += \
         client.ui
