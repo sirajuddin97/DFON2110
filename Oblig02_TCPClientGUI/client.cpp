@@ -21,11 +21,17 @@ void TCPClient::on_connectButton_clicked(){
         int tempPort = ui->ipBox->text().toInt();
 
         if(!socket.getConnectionStatus()){
-            if(socket.makeConnection(tempIP, tempPort)){
+			try{
+                socket.makeConnection(tempIP, tempPort);
                 addLog("Successfully connected to the server!");
                 ui->connectButton->setText("Disconnect");
+			}
+            catch(Errors e){
+                switch(e){
+                    case INVALID_CONNECTION: addLog("Failed to connect to the server. Try again!"); break;
+                }
             }
-            else addLog("Failed to connect to the server. Try again!");
+            catch(...){ addLog("Unknown error occured!"); }
         }
         else{
             socket.abortConnection();

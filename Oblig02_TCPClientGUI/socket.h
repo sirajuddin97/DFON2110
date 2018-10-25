@@ -7,14 +7,13 @@
 #include <arpa/inet.h>
 
 enum Errors{
-    INVALID_IP, INVALID_PORT, INVALID_STUDNR,
-    SOCKET_FAIL, CONNECTION_FAIL, SEND_FAIL, READ_FAIL
+    INVALID_CONNECTION
 };
 
 class Socket{
 public:
     Socket() : sock(0), port(0), ip("NULL"), isConnected(false) {}
-    bool makeConnection(std::string, int);
+    void makeConnection(std::string, int);
     void abortConnection();
     bool getConnectionStatus() const{ return isConnected; }
 
