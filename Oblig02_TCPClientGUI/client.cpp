@@ -26,9 +26,9 @@ void TCPClient::on_connectButton_clicked(){
                 addLog("Successfully connected to the server!");
                 ui->connectButton->setText("Disconnect");
 			}
-            catch(Errors e){
+            catch(states::Errors e){
                 switch(e){
-                    case INVALID_CONNECTION: addLog("Failed to connect to the server. Try again!"); break;
+                    case states::INVALID_CONNECTION: addLog("Failed to connect to the server. Try again!"); break;
                 }
             }
             catch(...){ addLog("Unknown error occured!"); }
