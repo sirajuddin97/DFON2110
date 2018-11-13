@@ -36,10 +36,12 @@ void TCPClient::on_connectButton_clicked(){
                 socket.makeConnection(tempIP, newPort);
                 addLog("Re-connected to " + ui->ipBox->text() + " on port " + QString::number(newPort));
 
-                if(socket.portResponse() == Server::MessageID::PING){
-                    addLog("Server is pinging the client");
-
+                Server::MessageID response = socket.portResponse();
+                while(response == Server::MessageID::PING){
+                    addLog("Server is pinging the client, returning a pong in response");
+                    socket.pongServer();
                 }
+                if(response == Server::MessageID::QUIT) addLog("Connection aborted!");
                 ui->connectButton->setText("Disconnect");
             }
             catch(Server::Errors e){
@@ -49,6 +51,7 @@ void TCPClient::on_connectButton_clicked(){
                     case Server::INVALID_CONNECTION: addLog("Failed to connect to the server!"); break;
                     case Server::INVALID_PORTREQUEST: addLog("Failed to receive a new port from the server!"); break;
                     case Server::PING_ERROR: addLog("Server could not ping the client properly!"); break;
+                    case Server::PONG_ERROR: addLog("Client could not pong the server properly!"); break;
                     case Server::INVALID_PORTRESPONSE: addLog("Invalid port response!"); break;
                 }
             }

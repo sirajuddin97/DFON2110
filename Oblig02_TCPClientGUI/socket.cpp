@@ -65,6 +65,9 @@ Server::MessageID Socket::portResponse(){
         case Server::MessageID::PONG:{
             return Server::MessageID::PONG;
         }
+        case Server::MessageID::QUIT:{
+            return Server::MessageID::QUIT;
+        }
         default:{
             throw Server::INVALID_PORTRESPONSE;
         }
@@ -72,7 +75,16 @@ Server::MessageID Socket::portResponse(){
 }
 
 void Socket::pongServer(){
+    char buffer[10];
+    char messageID = Server::MessageID::PONG;
+    const short packageSize = sizeof(packageSize) + sizeof(messageID);
 
+    memset(buffer, 0, sizeof(buffer));
+    memcpy(buffer, &packageSize, sizeof(packageSize));
+    memcpy(buffer+2, &messageID, sizeof(messageID));
+
+    int s = send(server.sock, buffer, sizeof(buffer), 0);
+    if(s < 0) throw Server::PONG_ERROR;
 }
 
 

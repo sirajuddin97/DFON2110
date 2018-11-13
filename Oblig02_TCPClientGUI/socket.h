@@ -24,7 +24,7 @@ namespace Server{
         RECEIVE_PORT = 0x02,
         PING = 0x03,
         PONG = 0x04,
-        ABORT = 0x05
+        QUIT = 0x05
     };
 
     enum Errors{
@@ -32,8 +32,9 @@ namespace Server{
         INVALID_CONNECTION,
         INVALID_STUDNR,
         INVALID_PORTREQUEST,
+        INVALID_PORTRESPONSE,
         PING_ERROR,
-        INVALID_PORTRESPONSE
+        PONG_ERROR
     };
 };
 
