@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 namespace Server{
     struct serverInfo{
@@ -16,10 +17,9 @@ namespace Server{
 
     struct studentInfo{
         char* number = new char[6];
-        int size = sizeof(number);
     };
 
-    enum class MessageID{
+    enum MessageID{
         REQUEST_PORT = 0x01,
         RECEIVE_PORT = 0x02,
         PING = 0x03,
@@ -29,22 +29,26 @@ namespace Server{
 
     enum Errors{
         SOCKET_ERROR,
-        INVALID_CONNECTION
+        INVALID_CONNECTION,
+        INVALID_STUDNR,
+        INVALID_PORTREQUEST,
+        PING_ERROR,
+        INVALID_PORTRESPONSE
     };
 };
 
 class Socket{
 public:    
-    //Socket() : server{ 0, 0, "NULL", false } {}
-    Socket(){
-        server.sock = 0;
-        server.port = 0;
-        server.ip = "NULL";
-    }
+    Socket() : server{ 0, 0, "NULL", false } {}
     void makeConnection(std::string, int);
     void abortConnection();
     bool getConnectionStatus() const{ return server.isConnected; }
     char* getStudentNumber() const{ return student.number; }
+    void verifyStudent(std::string);
+    void requestPort();
+    short receivePort();
+    Server::MessageID portResponse();
+    void pongServer();
 
 private:
     Server::serverInfo server;
