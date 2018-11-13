@@ -86,12 +86,3 @@ void Socket::pongServer(){
     int s = send(server.sock, buffer, sizeof(buffer), 0);
     if(s < 0) throw Server::PONG_ERROR;
 }
-
-
-
-
-
-
-
-
-

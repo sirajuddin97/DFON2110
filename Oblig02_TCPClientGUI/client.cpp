@@ -35,14 +35,17 @@ void TCPClient::on_connectButton_clicked(){
 
                 socket.makeConnection(tempIP, newPort);
                 addLog("Re-connected to " + ui->ipBox->text() + " on port " + QString::number(newPort));
+                ui->connectButton->setText("Disconnect");
 
                 Server::MessageID response = socket.portResponse();
                 while(response == Server::MessageID::PING){
                     addLog("Server is pinging the client, returning a pong in response");
                     socket.pongServer();
+                    response = socket.portResponse();
                 }
-                if(response == Server::MessageID::QUIT) addLog("Connection aborted!");
-                ui->connectButton->setText("Disconnect");
+                if(response == Server::MessageID::QUIT) addLog("Connection aborted! Disconnecting from the server");
+                socket.abortConnection();
+                ui->connectButton->setText("Connect");
             }
             catch(Server::Errors e){
                 switch(e){
