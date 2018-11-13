@@ -14,6 +14,7 @@ class TCPClient : public QMainWindow{
 public:
     explicit TCPClient(QWidget *parent = nullptr);
     ~TCPClient();
+    void addLog(QString);
 
 private slots:
     void on_connectButton_clicked();
@@ -21,7 +22,6 @@ private slots:
 
 private:
     Ui::TCPClient *ui;
-    void addLog(QString);
     Socket socket;
 };
 

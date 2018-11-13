@@ -18,7 +18,7 @@ void TCPClient::addLog(QString text){
 void TCPClient::on_connectButton_clicked(){
     if(!ui->ipBox->text().isEmpty() && !ui->portBox->text().isEmpty()){
         std::string tempIP = ui->ipBox->text().toStdString();
-        int tempPort = ui->ipBox->text().toInt();
+        int tempPort = ui->portBox->text().toInt();
 
         if(!socket.getConnectionStatus()){
 			try{
@@ -26,9 +26,10 @@ void TCPClient::on_connectButton_clicked(){
                 addLog("Successfully connected to the server!");
                 ui->connectButton->setText("Disconnect");
 			}
-            catch(states::Errors e){
+            catch(Server::Errors e){
                 switch(e){
-                    case states::INVALID_CONNECTION: addLog("Failed to connect to the server. Try again!"); break;
+                    case Server::SOCKET_ERROR: addLog("Failed to create a socket!"); break;
+                    case Server::INVALID_CONNECTION: addLog("Failed to connect to the server!"); break;
                 }
             }
             catch(...){ addLog("Unknown error occured!"); }

@@ -6,7 +6,19 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-namespace states{
+namespace Server{
+    struct serverInfo{
+        int sock, port;
+        std::string ip;
+        bool isConnected;
+        sockaddr_in serv_addr;
+    };
+
+    struct studentInfo{
+        char* number = new char[6];
+        int size = sizeof(number);
+    };
+
     enum class MessageID{
         REQUEST_PORT = 0x01,
         RECEIVE_PORT = 0x02,
@@ -16,43 +28,27 @@ namespace states{
     };
 
     enum Errors{
+        SOCKET_ERROR,
         INVALID_CONNECTION
     };
 };
 
-namespace server{
-    struct serverInfo{
-        int sock, port;
-        std::string ip;
-        bool isConnected;
-        struct sockaddr_in serv_addr;
-    };
-
-    struct studentInfo{
-        char* number = new char[6];
-        int size = sizeof(number);
-    };
-};
-
 class Socket{
-public:
-    //Socket() : serv.sock(0), serv.port(0), serv.ip("NULL"), serv.isConnected(false) {}
-
+public:    
+    //Socket() : server{ 0, 0, "NULL", false } {}
     Socket(){
-        srv.sock = 0;
-        srv.port = 0;
-        srv.ip = "NULL";
-        srv.isConnected = false;
+        server.sock = 0;
+        server.port = 0;
+        server.ip = "NULL";
     }
-
     void makeConnection(std::string, int);
     void abortConnection();
-    bool getConnectionStatus() const{ return srv.isConnected; }
-    char* getStudentNumber() const{ return stud.number; }
+    bool getConnectionStatus() const{ return server.isConnected; }
+    char* getStudentNumber() const{ return student.number; }
 
 private:
-    server::serverInfo srv;
-    server::studentInfo stud;
+    Server::serverInfo server;
+    Server::studentInfo student;
 };
 
 #endif
