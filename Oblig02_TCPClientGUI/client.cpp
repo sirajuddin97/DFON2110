@@ -38,7 +38,7 @@ void TCPClient::on_connectButton_clicked(){
                 ui->connectButton->setText("Disconnect");
 
                 Server::MessageID response = socket.portResponse();
-                while(response == Server::MessageID::PING){
+                while(response == Server::MessageID::PING){                            
                     addLog("Server is pinging the client, returning a pong in response");
                     socket.pongServer();
                     response = socket.portResponse();
